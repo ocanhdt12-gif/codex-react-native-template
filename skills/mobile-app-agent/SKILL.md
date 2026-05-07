@@ -1,106 +1,59 @@
 ---
-name: Mobile App Agent
-slug: mobile-app-agent
-version: 1.0.0
-description: Senior mobile app developer agent — React Native/Expo, navigation, forms, offline-first flows, performance optimization, and native integration patterns.
+name: mobile-app-agent
+description: Build and refactor React Native / Expo app features with strong mobile architecture, screen composition, navigation, device APIs, offline-aware state, and performance guardrails. Use when implementing mobile screens, flows, hooks, stores, permissions, or app structure.
 ---
 
-# 📱 Mobile App Developer Agent
+# Mobile App Agent
 
-## When to Use
+Prefer Expo-first solutions unless the spec proves native-only work is required.
 
-Activate when user needs mobile app development expertise: building React Native / Expo screens, app architecture, navigation, device APIs, forms, offline sync, push notifications, or performance tuning.
+## Do first
 
-## Identity
+1. Read the current phase/task docs.
+2. Identify the flow: auth, CRUD, onboarding, settings, media, notifications, or offline sync.
+3. Check whether existing app structure already defines patterns for navigation, state, forms, networking, and storage.
+4. Keep edits scoped to the task.
 
-You are a senior mobile engineer focused on production-ready React Native apps. You prioritize reliability on real devices, smooth UX, maintainability, and safe native integration.
+## Architecture defaults
 
-## Core Capabilities
+- Organize by feature, not by giant shared folders.
+- Keep screens thin; move business logic into hooks/services.
+- Split state into:
+  - server state → TanStack Query
+  - client UI state → Zustand or local component state
+  - persisted sensitive state → SecureStore/MMKV wrapper
+- Prefer typed adapters around device APIs.
+- Handle loading, empty, error, retry, and permission-denied states explicitly.
 
-### 1. Screen & Flow Development
-- Build reusable screen patterns and feature modules
-- Design onboarding, auth, CRUD, and settings flows
-- Handle loading / empty / error states cleanly
-- Respect safe areas, keyboard, and small screens
+## Screen checklist
 
-### 2. State & Data
-- Zustand / Jotai for client state
-- TanStack Query for server state
-- Offline cache / optimistic update patterns
-- Secure token storage and session refresh
+For each new screen or major flow, verify:
 
-### 3. Native Integration
-- Camera, location, notifications, deep links
-- Permissions handling for iOS + Android
-- Expo modules first, custom native modules only when needed
-- Build-time env + secrets hygiene
+- Safe area respected
+- Keyboard does not hide key actions
+- Back/navigation behavior is clear
+- Dark mode does not break readability
+- Small-device layout still works
+- Network and permission failure states are visible
 
-### 4. Performance & Quality
-- Reduce re-renders and heavy bridge traffic
-- Memoization and list virtualization
-- Startup time, bundle size, image caching
-- Test on emulator + real device before claiming done
+## Performance rules
 
-## Workflow
+- Avoid unnecessary global state.
+- Memoize expensive lists/selectors only when measured or obvious.
+- Use FlatList/FlashList for long collections.
+- Avoid inline anonymous renderers in hot lists unless trivial.
+- Keep bridge-heavy or animation-heavy logic isolated.
 
-**Step 1 — Requirements Analysis**
-Ask about target platforms, auth, offline needs, device features, release constraints, and whether Expo managed workflow is acceptable.
+## Device integration rules
 
-**Step 2 — Architecture Design**
-Provide app structure, navigation map, data-flow plan, local persistence strategy, and API boundaries.
+- Prefer Expo modules first.
+- Add permission copy and fallback UI before wiring the API.
+- Never store auth tokens in plain AsyncStorage.
+- Document manual test steps for camera, notifications, biometrics, deep links, or background behavior.
 
-**Step 3 — Code Implementation**
-Deliver runnable screen code, hooks, stores, typed API clients, and test coverage.
+## Done means
 
-**Step 4 — Device Validation**
-Include emulator / real-device checks, permission edge cases, performance notes, and release blockers.
+Do not call a mobile task done until one of these happened:
 
-## React Native Screen Template
-
-```tsx
-import { useState } from 'react'
-import { ActivityIndicator, Pressable, Text, View } from 'react-native'
-
-interface ActionCardProps {
-  title: string
-  onPress: () => Promise<void>
-}
-
-export function ActionCard({ title, onPress }: ActionCardProps) {
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handlePress = async () => {
-    setIsLoading(true)
-    try {
-      await onPress()
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  return (
-    <Pressable
-      onPress={handlePress}
-      className="rounded-2xl bg-white p-4 active:opacity-80"
-    >
-      <Text className="text-lg font-semibold text-slate-900">{title}</Text>
-      {isLoading ? <ActivityIndicator /> : <View className="mt-2 h-10" />}
-    </Pressable>
-  )
-}
-```
-
-## Success Metrics
-
-- ✅ TypeScript passes with strict mode
-- ✅ Jest / React Native Testing Library passes
-- ✅ Core user flows run on at least one simulator/emulator
-- ✅ iOS + Android permission paths reviewed
-- ✅ No obvious jank on long lists / heavy screens
-
-## Notes
-
-- Expo-first unless spec proves otherwise
-- Prefer simple native dependencies over flashy ones
-- Treat release signing, env config, and permissions as first-class work
-- If a feature is hard to test in CI, document the manual device checklist
+- verified on simulator/emulator, or
+- blocked by missing runtime/device and the blocker is stated clearly.

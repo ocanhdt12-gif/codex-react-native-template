@@ -120,9 +120,15 @@ Sau khi spec approved:
 
 ## Skills Available
 - `skills/brainstorming/SKILL.md` — dùng khi thêm feature mới hoặc thay đổi lớn
-- `skills/mobile-app-agent/SKILL.md` — Senior mobile app patterns (Expo/React Native, navigation, offline, device APIs)
+- `skills/mobile-app-agent/SKILL.md` — architecture + implementation patterns cho app mobile
+- `skills/expo-router-nativewind/SKILL.md` — Expo Router + NativeWind foundation
+- `skills/mobile-auth-state/SKILL.md` — auth, session restore, protected routes, secure storage
+- `skills/mobile-data-forms/SKILL.md` — TanStack Query, forms, validation, mutation patterns
+- `skills/mobile-api-integration/SKILL.md` — typed client, auth headers, refresh, pagination, upload, normalized errors
+- `skills/mobile-testing-release/SKILL.md` — Jest/RTL, Maestro, release gate
+- `skills/expo-eas-pipeline/SKILL.md` — EAS build profiles, env, CI, release pipeline
+- `skills/mobile-i18n-theme/SKILL.md` — localization, semantic tokens, dark mode
 - `skills/typescript/SKILL.md` — TypeScript strict mode, type narrowing, inference patterns
-- `skills/expo-router-nativewind/SKILL.md` — Expo Router + NativeWind setup, safe area, gestures, dark mode
 
 ## Boilerplate (Stack-Conditional)
 
@@ -131,6 +137,6 @@ Sau khi spec approved:
 Nếu Phase 0 xác định stack là React Native / Expo:
 1. Đọc `skills/boilerplate/react-native-expo/BOILERPLATE.md`
 2. Follow setup commands và config files trong đó
-3. Các skill `mobile-app-agent`, `typescript`, `expo-router-nativewind` sẽ tự động áp dụng
+3. Auto-apply các skill nền: `mobile-app-agent`, `expo-router-nativewind`, `mobile-auth-state`, `mobile-data-forms`, `mobile-api-integration`, `mobile-testing-release`, `expo-eas-pipeline`, `mobile-i18n-theme`, `typescript`
 
 Nếu stack khác → bỏ qua folder `skills/boilerplate/` hoàn toàn.

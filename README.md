@@ -162,6 +162,18 @@ my-project/
 │   │   └── SKILL.md               ← Mobile architecture + implementation patterns
 │   ├── expo-router-nativewind/
 │   │   └── SKILL.md               ← Expo Router + NativeWind foundation
+│   ├── mobile-auth-state/
+│   │   └── SKILL.md               ← Auth, secure storage, protected routes
+│   ├── mobile-data-forms/
+│   │   └── SKILL.md               ← Query, mutation, forms, validation patterns
+│   ├── mobile-api-integration/
+│   │   └── SKILL.md               ← Typed client, auth, pagination, upload, errors
+│   ├── mobile-testing-release/
+│   │   └── SKILL.md               ← Testing pyramid + release gate
+│   ├── expo-eas-pipeline/
+│   │   └── SKILL.md               ← EAS build profiles, CI, release pipeline
+│   ├── mobile-i18n-theme/
+│   │   └── SKILL.md               ← Localization + theme rules
 │   └── boilerplate/
 │       └── react-native-expo/
 │           └── BOILERPLATE.md     ← Expo bootstrap reference
@@ -336,6 +348,21 @@ Skill sẽ tự động:
 3. Propose 2-3 approaches
 4. Viết design doc mới vào `docs/specs/`
 5. Tạo tasks cho feature đó
+
+---
+
+## 🧩 Skill Map
+
+| Skill | Dùng khi nào |
+|------|---------------|
+| `mobile-app-agent` | build screen/flow, refactor feature, device API integration |
+| `expo-router-nativewind` | setup hoặc fix routing + NativeWind foundation |
+| `mobile-auth-state` | login/logout, session restore, protected routes |
+| `mobile-data-forms` | query/mutation, form submit, validation, retry/offline |
+| `mobile-api-integration` | connect app với backend API, auth header, refresh, pagination, upload |
+| `mobile-testing-release` | thêm test, verify feature trước merge/release |
+| `expo-eas-pipeline` | setup EAS, env, preview/prod build, CI |
+| `mobile-i18n-theme` | đa ngôn ngữ, dark mode, token/theme consistency |
 
 ---
 
