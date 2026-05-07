@@ -251,6 +251,24 @@ opencode .
 
 ---
 
+## 🚦 Mobile CI/CD Flow
+
+Template này dùng 3 lớp verify:
+
+1. **Local simulator/emulator** — dev test trực tiếp trên máy
+2. **GitHub Actions CI** — lint, typecheck, tests, Expo doctor
+3. **EAS cloud builds** — preview build cho QA và production build cho release
+
+Files chính:
+- `.github/workflows/ci.yml`
+- `.github/workflows/eas-preview.yml`
+- `.github/workflows/eas-production.yml`
+- `docs/CI_CD_MOBILE.md`
+
+> CI/CD mobile không tự build thẳng lên simulator máy anh; nó build artifact/link trên cloud. Simulator vẫn là bước local dev.
+
+---
+
 ## 🧠 Memory & Learning
 
 ### Memory Hooks
@@ -431,6 +449,7 @@ graphify ./src
 - **Mobile App Agent:** `skills/mobile-app-agent/SKILL.md`
 - **Expo Boilerplate:** `skills/boilerplate/react-native-expo/BOILERPLATE.md`
 - **Mobile E2E:** `docs/MOBILE_E2E.md`
+- **Mobile CI/CD:** `docs/CI_CD_MOBILE.md`
 - **Memory Hooks:** `docs/MEMORY_HOOKS.md`
 - **Continuous Learning:** `docs/CONTINUOUS_LEARNING.md`
 - **Graphify:** `docs/GRAPHIFY.md`

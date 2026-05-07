@@ -37,3 +37,10 @@ Before internal or production release:
 4. verify app icon/name/version/build number changes if relevant
 5. verify crash/monitoring hooks are active
 6. note remaining manual QA risks
+
+## CI/CD interpretation
+
+- simulator/emulator checks happen locally
+- CI should run lint/type/test before expensive cloud builds
+- preview EAS builds are for QA confidence
+- production builds should stay manual or approval-gated

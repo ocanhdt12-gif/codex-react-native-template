@@ -1,0 +1,71 @@
+name: EAS Production Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Platform to build
+        required: true
+        default: all
+        type: choice
+        options:
+          - android
+          - ios
+          - all
+      submit:
+        description: Submit to store after build
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  build-production:
+    if: ${{ hashFiles('package.json') != '' && secrets.EXPO_TOKEN != '' }}
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -f pnpm-lock.yaml ]; then
+            corepack enable
+            pnpm install --frozen-lockfile
+          elif [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build production artifact
+        shell: bash
+        env:
+          EAS_NO_VCS: 1
+        run: |
+          set -euo pipefail
+          eas build --non-interactive --platform "${{ github.event.inputs.platform }}" --profile production
+
+      - name: Submit to store
+        if: ${{ github.event.inputs.submit == 'true' }}
+        shell: bash
+        env:
+          EAS_NO_VCS: 1
+        run: |
+          set -euo pipefail
+          eas submit --non-interactive --platform "${{ github.event.inputs.platform }}" --latest

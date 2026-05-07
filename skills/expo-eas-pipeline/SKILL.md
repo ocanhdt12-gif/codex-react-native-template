@@ -39,3 +39,15 @@ description: Configure Expo EAS build/release pipelines, app environments, secre
 
 - Decide early whether a change is OTA-safe or requires a binary rebuild.
 - Do not assume every JS change can ship safely without checking native/plugin impact.
+
+## Recommended flow
+
+- local simulator/emulator for fast dev feedback
+- GitHub Actions quality gate on PR/push
+- EAS preview build on `develop`
+- manual EAS production build from `main`/release state
+
+## Required secrets
+
+At minimum document `EXPO_TOKEN`.
+If the app needs third-party services, list release-critical secrets explicitly instead of assuming they exist.
