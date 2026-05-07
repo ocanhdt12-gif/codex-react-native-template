@@ -245,7 +245,11 @@ my-project/
 │
 ├── tasks/
 │   ├── todo.md                    ← Task hiện tại + up next
-│   └── done.md                    ← Log tasks đã xong
+│   ├── done.md                    ← Log tasks đã xong
+│   ├── layer-0-todo.md            ← Layer 0 tasks (nếu dùng Dependency-Driven)
+│   ├── layer-1-todo.md            ← Layer 1 tasks
+│   ├── layer-2-todo.md            ← Layer 2 tasks
+│   └── layer-3-todo.md            ← Layer 3 tasks (hoặc thêm layer nếu cần)
 │
 ├── app/                           ← Expo Router entry screens
 ├── src/                           ← Shared source code
@@ -264,6 +268,11 @@ my-project/
 ├── prometheus.yml                 ← Prometheus config
 ├── .env.example                   ← Env vars template
 └── .gitignore
+
+**Lưu ý:** Folder structure linh hoạt tùy cách chia scope:
+- **Feature-Based:** dùng `tasks/todo.md` chung
+- **Epic-Based:** dùng `tasks/epic-1-todo.md`, `tasks/epic-2-todo.md`, etc.
+- **Dependency-Driven:** dùng `tasks/layer-0-todo.md`, `tasks/layer-1-todo.md`, etc.
 ```
 
 ---
