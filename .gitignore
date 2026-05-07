@@ -1,0 +1,19 @@
+# .gitignore
+
+.env
+node_modules/
+dist/
+build/
+.DS_Store
+*.log
+.cache/
+
+# Graphify output (regenerate as needed)
+graphify-out/
+.graphify-cache/
+
+# Memory & Learning (local, don't commit)
+memory/*.md
+.learnings/*.md
+!memory/.gitkeep
+!.learnings/.gitkeep
