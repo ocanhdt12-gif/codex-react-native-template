@@ -12,7 +12,7 @@ $RESET = "`e[0m"
 
 Write-Host ""
 Write-Host "${BOLD}╔══════════════════════════════════════════╗${RESET}"
-Write-Host "${BOLD}║     🚀 Codex Project Starter             ║${RESET}"
+Write-Host "${BOLD}║     🚀 Opencode Project Starter          ║${RESET}"
 Write-Host "${BOLD}╚══════════════════════════════════════════╝${RESET}"
 Write-Host ""
 
@@ -30,22 +30,34 @@ Write-Host ""
 Write-Host "${CYAN}Step 2/4: Brain dump ý tưởng${RESET}"
 Write-Host "  ${YELLOW}Mô tả ngắn gọn về project (không cần chuẩn, cứ dump thôi):${RESET}"
 Write-Host "  ${YELLOW}Ví dụ: App làm gì, user là ai, tính năng chính, stack muốn dùng...${RESET}"
-Write-Host "  ${YELLOW}(Nhấn Ctrl+D rồi Enter để xong)${RESET}"
 Write-Host ""
 
-$BRIEF = @()
-while ($true) {
-  $line = Read-Host
-  if ([string]::IsNullOrWhiteSpace($line)) {
-    break
-  }
-  $BRIEF += $line
-}
+$useFile = Read-Host "  Bạn muốn nhập từ file không? (y/n) [default: n]"
+if ([string]::IsNullOrWhiteSpace($useFile)) { $useFile = "n" }
 
-if ($BRIEF.Count -eq 0) {
-  $BRIEF = "(Chưa có mô tả — Codex sẽ hỏi thêm trong Phase 0)"
+if ($useFile -match "^[Yy]$") {
+  $filePath = Read-Host "  Đường dẫn file"
+  if (-not (Test-Path $filePath)) {
+    Write-Host "❌ File không tồn tại: $filePath"
+    exit 1
+  }
+  $BRIEF = Get-Content -Path $filePath -Raw
 } else {
-  $BRIEF = $BRIEF -join "`n"
+  Write-Host "  ${YELLOW}(Nhấn Ctrl+D rồi Enter để xong)${RESET}"
+  Write-Host ""
+  $BRIEF = @()
+  while ($true) {
+    $line = Read-Host
+    if ([string]::IsNullOrWhiteSpace($line)) {
+      break
+    }
+    $BRIEF += $line
+  }
+  if ($BRIEF.Count -eq 0) {
+    $BRIEF = "(Chưa có mô tả — Opencode sẽ hỏi thêm trong Phase 0)"
+  } else {
+    $BRIEF = $BRIEF -join "`n"
+  }
 }
 
 # ── Step 3: Replace placeholders ────────────────────────────
@@ -101,9 +113,9 @@ Write-Host ""
 Write-Host "  📁 ${YELLOW}$(Get-Location)${RESET}"
 Write-Host ""
 Write-Host "  Bước tiếp theo:"
-Write-Host "  ${CYAN}1. Mở folder này trong Codex${RESET}"
-Write-Host "  ${CYAN}2. Codex đọc CODEX.md → tự bắt đầu Phase 0${RESET}"
-Write-Host "  ${CYAN}3. Trả lời câu hỏi của Codex là xong 🎯${RESET}"
+Write-Host "  ${CYAN}1. Mở folder này trong Opencode${RESET}"
+Write-Host "  ${CYAN}2. Opencode đọc CLAUDE.md → tự bắt đầu Phase 0${RESET}"
+Write-Host "  ${CYAN}3. Trả lời câu hỏi của Opencode là xong 🎯${RESET}"
 Write-Host ""
 Write-Host "${GREEN}${BOLD}Happy building! 🎉${RESET}"
 Write-Host ""

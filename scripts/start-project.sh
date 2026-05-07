@@ -16,7 +16,7 @@ RESET="\033[0m"
 
 echo ""
 echo -e "${BOLD}╔══════════════════════════════════════════╗${RESET}"
-echo -e "${BOLD}║     🚀 Codex Project Starter             ║${RESET}"
+echo -e "${BOLD}║     🚀 Opencode Project Starter          ║${RESET}"
 echo -e "${BOLD}╚══════════════════════════════════════════╝${RESET}"
 echo ""
 
@@ -34,27 +34,39 @@ echo ""
 echo -e "${CYAN}Step 2/4: Brain dump ý tưởng${RESET}"
 echo -e "  ${YELLOW}Mô tả ngắn gọn về project (không cần chuẩn, cứ dump thôi):${RESET}"
 echo -e "  ${YELLOW}Ví dụ: App làm gì, user là ai, tính năng chính, stack muốn dùng...${RESET}"
-echo -e "  ${YELLOW}(Nhấn Enter 2 lần để xong)${RESET}"
 echo ""
 
-BRIEF=""
-EMPTY_LINES=0
-while IFS= read -r line; do
-  if [ -z "$line" ]; then
-    EMPTY_LINES=$((EMPTY_LINES + 1))
-    if [ $EMPTY_LINES -ge 2 ]; then
-      break
-    fi
-  else
-    EMPTY_LINES=0
-  fi
-  BRIEF="$BRIEF$line"$'\n'
-done
+read -p "  Bạn muốn nhập từ file không? (y/n) [default: n]: " USE_FILE
+USE_FILE=${USE_FILE:-n}
 
-BRIEF=$(echo "$BRIEF" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}')
+if [[ "$USE_FILE" =~ ^[Yy]$ ]]; then
+  read -p "  Đường dẫn file: " FILE_PATH
+  if [ ! -f "$FILE_PATH" ]; then
+    echo "❌ File không tồn tại: $FILE_PATH"
+    exit 1
+  fi
+  BRIEF=$(cat "$FILE_PATH")
+else
+  echo -e "  ${YELLOW}(Nhấn Enter 2 lần để xong)${RESET}"
+  echo ""
+  BRIEF=""
+  EMPTY_LINES=0
+  while IFS= read -r line; do
+    if [ -z "$line" ]; then
+      EMPTY_LINES=$((EMPTY_LINES + 1))
+      if [ $EMPTY_LINES -ge 2 ]; then
+        break
+      fi
+    else
+      EMPTY_LINES=0
+    fi
+    BRIEF="$BRIEF$line"$'\n'
+  done
+  BRIEF=$(echo "$BRIEF" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}')
+fi
 
 if [ -z "$(echo "$BRIEF" | tr -d '[:space:]')" ]; then
-  BRIEF="(Chưa có mô tả — Codex sẽ hỏi thêm trong Phase 0)"
+  BRIEF="(Chưa có mô tả — Opencode sẽ hỏi thêm trong Phase 0)"
 fi
 
 # ── Step 3: Replace placeholders ────────────────────────────
@@ -111,9 +123,9 @@ echo ""
 echo -e "  📁 ${YELLOW}$(pwd)${RESET}"
 echo ""
 echo -e "  Bước tiếp theo:"
-echo -e "  ${CYAN}1. Mở folder này trong Codex${RESET}"
-echo -e "  ${CYAN}2. Codex đọc CODEX.md → tự bắt đầu Phase 0${RESET}"
-echo -e "  ${CYAN}3. Trả lời câu hỏi của Codex là xong 🎯${RESET}"
+echo -e "  ${CYAN}1. Mở folder này trong Opencode${RESET}"
+echo -e "  ${CYAN}2. Opencode đọc CLAUDE.md → tự bắt đầu Phase 0${RESET}"
+echo -e "  ${CYAN}3. Trả lời câu hỏi của Opencode là xong 🎯${RESET}"
 echo ""
 echo -e "${GREEN}${BOLD}Happy building! 🎉${RESET}"
 echo ""
