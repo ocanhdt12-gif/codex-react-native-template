@@ -1,20 +1,20 @@
-# 🚀 Codex React Native Template
+# 🚀 Opencode Project Template
 
-> Production-ready template để khởi động **React Native / Expo project** với **[OpenAI Codex](https://openai.com/codex)** (CLI).  
-> Tích hợp Brainstorming → Design → Scope Breakdown → Code → Test → Release workflow.
+> Production-ready template để khởi động **Web project** mới với **[Opencode](https://opencode.ai)**.  
+> Tích hợp Brainstorming → Design → Scope Breakdown → Code → Test → Monitor workflow.
 
-![AI Tool](https://img.shields.io/badge/AI-OpenAI%20Codex-412991?logo=openai) ![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-lightgrey?logo=react) ![Language](https://img.shields.io/badge/Stack-React%20Native%20%7C%20Expo%20%7C%20TypeScript-61DAFB)
+![AI Tool](https://img.shields.io/badge/AI-Opencode-blue?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJMMiA3bDEwIDUgMTAtNS0xMC01ek0yIDE3bDEwIDUgMTAtNS0xMC01LTEwIDV6TTIgMTJsMTAgNSAxMC01LTEwLTUtMTAgNXoiLz48L3N2Zz4=) ![Platform](https://img.shields.io/badge/Platform-Web-green) ![Language](https://img.shields.io/badge/Stack-Node.js%20%7C%20React%20%7C%20TypeScript-blue)
 
-### 🤖 Dành cho OpenAI Codex CLI · 📱 Mobile First
-Template này được tối ưu cho **OpenAI Codex CLI** khi phát triển ứng dụng **React Native / Expo**.  
-Skills tập trung vào mobile: Expo Router, NativeWind, EAS Build, mobile testing, và release pipeline.
+### 🤖 Dành cho Opencode
+Template này được tối ưu cho **Opencode** — AI coding assistant chạy trong terminal.  
+Cấu trúc `CLAUDE.md`, `skills/`, `docs/` được thiết kế để Opencode đọc và làm việc hiệu quả nhất.
 
 ---
 
 ## ✨ Tại Sao Dùng Template Này?
 
 - **Brainstorm trước, code sau** — design doc được approve trước khi viết dòng code đầu tiên
-- **Scope breakdown tối ưu** — 3 cách chia scope (Feature-Based, Epic-Based, Dependency-Driven)
+- **Scope breakdown tối ưu** — Dependency-Driven approach (Layer 0 → 1 → 2 → ...)
 - **Không mất context** — auto-save/load context qua sessions
 - **Không code lung tung** — plan rõ ràng, task nhỏ, test ngay
 - **Auto-learn từ mistakes** — continuous learning system
@@ -35,7 +35,8 @@ Skills tập trung vào mobile: Expo Router, NativeWind, EAS Build, mobile testi
 
 ## 🏁 Bắt Đầu
 
-**Luồng script:**
+### Luồng Script
+
 ```
 User chạy script
   ↓
@@ -48,20 +49,85 @@ Nếu YES → nhập đường dẫn file
 Nếu NO → gõ brain dump text (cách cũ)
   → Tạo docs/BRIEF.md
   ↓
-Update CLAUDE.md/CODEX.md reference cả 2 file
+Update CLAUDE.md reference cả 2 file
   ↓
 Tạo tasks/layer-0-todo.md (Foundation)
   ↓
-OpenCode đọc CLAUDE.md/CODEX.md → bắt đầu Phase 0
+OpenCode đọc CLAUDE.md → bắt đầu Phase 0
 ```
 
-**Cách dùng:**
+### Cách Dùng
+
 ```bash
 ./scripts/start-project.sh
 # Step 1: Nhập tên project
 # Step 2: Nhập đường dẫn file mô tả (hoặc Enter để skip)
 # → Script tự tạo files + git init
 # → Mở folder trong Opencode → Phase 0 tự bắt đầu
+```
+
+---
+
+## 🗂️ Cấu Trúc Project
+
+```
+my-project/
+│
+├── CLAUDE.md                      ← 🔑 Source of truth cho Opencode
+│
+├── docs/
+│   ├── BRIEF.md                   ← Brain dump ban đầu (tóm tắt)
+│   ├── SPECIFICATIONS.md          ← Chi tiết requirements (nếu có file)
+│   ├── SCOPE_BREAKDOWN.md         ← Phân tích dependency + layers
+│   ├── MONITORING.md              ← Sentry + Prometheus + Grafana
+│   ├── MEMORY_HOOKS.md            ← Auto-save/load context
+│   ├── CONTINUOUS_LEARNING.md     ← Auto-extract patterns
+│   ├── GRAPHIFY.md                ← Knowledge graph builder
+│   ├── CI_CD_WEB.md               ← Web CI/CD flow
+│   ├── specs/                     ← Design docs (output của brainstorming)
+│   │   └── YYYY-MM-DD-[topic]-design.md
+│   └── phases/
+│       └── phase-0.md             ← Brainstorming instructions
+│
+├── skills/
+│   └── brainstorming/
+│       └── SKILL.md               ← Reusable brainstorming workflow
+│
+├── memory/                        ← Auto-save context từ sessions
+│   └── .gitkeep
+│
+├── .learnings/                    ← Auto-extract patterns + lessons
+│   └── .gitkeep
+│
+├── tasks/
+│   ├── layer-0-todo.md            ← Foundation tasks (no dependency)
+│   ├── layer-1-todo.md            ← Layer 1 tasks (tạo khi cần)
+│   ├── layer-2-todo.md            ← Layer 2 tasks (tạo khi cần)
+│   ├── layer-N-todo.md            ← Tạo tùy scope breakdown
+│   └── done.md                    ← Completed tasks log
+│
+├── src/                           ← Source code
+│
+├── tests/
+│   ├── unit/                      ← Viết cùng lúc với code
+│   ├── integration/               ← Viết cuối mỗi layer
+│   └── e2e/                       ← Viết trước release
+│
+├── scripts/
+│   ├── start-project.sh           ← Script khởi tạo project
+│   ├── start-project.bat          ← Windows CMD version
+│   └── start-project.ps1          ← Windows PowerShell version
+│
+├── .github/
+│   └── workflows/
+│       ├── ci.yml                 ← Quality gate (lint, typecheck, test, build)
+│       ├── preview-build.yml      ← Preview artifact
+│       └── production-build.yml   ← Production artifact
+│
+├── docker-compose.monitoring.yml  ← Prometheus + Grafana
+├── prometheus.yml                 ← Prometheus config
+├── .env.example                   ← Env vars template
+└── .gitignore
 ```
 
 ---
@@ -75,7 +141,8 @@ Template này dùng **Dependency-Driven approach** làm mặc định:
 - Các task trong cùng layer có thể làm **song parallel**
 - Chỉ khi layer N xong → mới bắt đầu layer N+1
 
-**Cấu trúc task:**
+### Cấu Trúc Task
+
 ```
 tasks/
 ├── layer-0-todo.md      ← Foundation tasks (tạo mặc định)
@@ -85,21 +152,25 @@ tasks/
 └── done.md              ← Completed tasks log
 ```
 
-**Quy tắc:**
+### Quy Tắc
+
 - ✅ Số layer **phụ thuộc vào scope breakdown** — không cố định
 - ✅ Mỗi layer chứa **nhiều task độc lập** (không phải chỉ 1 task)
 - ✅ Các task trong cùng layer có thể làm **song parallel**
 - ✅ Chỉ khi layer N hoàn toàn xong → mới bắt đầu layer N+1
 - ✅ Không block — dễ parallelize, tối ưu timeline
 
-**Cách tạo layer tiếp theo:**
+### Cách Tạo Layer Tiếp Theo
+
 Xem hướng dẫn trong `tasks/layer-0-todo.md` để tạo `layer-1-todo.md`, `layer-2-todo.md`, ...
 
 Xem `docs/SCOPE_BREAKDOWN.md` để chi tiết.
 
+---
+
 ## 🚦 Web CI/CD Flow
 
-Template này có 3 lớp verify:
+Template này có 4 lớp verify:
 
 ### 1. Local Development
 ```bash
@@ -241,8 +312,6 @@ Xem `docs/MONITORING.md` để:
 
 ---
 
----
-
 ## 🛠️ Skills
 
 Skills là các instruction set chuyên biệt giúp AI code đúng pattern, đúng convention, và tránh lỗi phổ biến. Mỗi skill nằm trong `skills/<tên>/SKILL.md`.
@@ -252,14 +321,23 @@ Skills là các instruction set chuyên biệt giúp AI code đúng pattern, đ�
 | `brainstorming` | Dùng TRƯỚC khi làm bất kỳ feature mới. Explore ý tưởng, clarify requirements, propose approaches, viết design doc trước khi code |
 | `boilerplate` | Tạo boilerplate code cho các pattern phổ biến |
 | `typescript` | Viết TypeScript type-safe với proper narrowing, inference patterns, và strict mode |
-| `expo-router-nativewind` | Setup Expo Router + NativeWind: root layout, safe area, gesture handler, Reanimated, theme wiring, route structure |
-| `mobile-app-agent` | Senior React Native agent: screen composition, navigation, device APIs, offline-aware state, performance |
-| `mobile-auth-state` | Authentication, session persistence, secure token storage, auth-gated navigation cho Expo apps |
-| `mobile-api-integration` | Kết nối app với backend APIs: typed client, auth headers, refresh-token, query/mutation hooks, offline caching |
-| `mobile-data-forms` | Data fetching, mutations, caching, optimistic updates và validated forms với TanStack Query |
-| `mobile-i18n-theme` | Localization, theme tokens, dark mode, design primitives cho React Native apps |
-| `mobile-testing-release` | Testing pyramid: unit, integration, device verification, E2E smoke, internal builds, release readiness |
-| `expo-eas-pipeline` | Expo EAS build/release pipelines: environments, secrets, profiles, CI handoff, GitHub Actions automation |
+| `api-design` | REST API best practices: request/response structure, error handling, versioning, authentication |
+| `nodejs-express-patterns` | Express.js best practices: routing, middleware, error handling, validation, production patterns |
+| `database-orm-patterns` | Database design và ORM: schema, migrations, relationships, query optimization với Prisma/TypeORM/Sequelize |
+| `frontend-agent` | Senior Frontend Developer agent — React/Vue/Angular, UI implementation, performance optimization |
+| `state-management-data-fetching` | Quản lý state với Zustand và server state với TanStack Query: store design, selectors, mutations, caching |
+| `tailwind-v4-shadcn` | Setup Tailwind CSS v4 + shadcn/ui, tránh 8 documented errors qua mandatory four-step architecture |
+| `testing-vitest-jest` | Unit, integration, component tests với Vitest + React Testing Library, coverage 80%+ |
+| `testing-backend-jest` | Unit, integration, API tests cho Node.js backend với Jest + Supertest, coverage 80%+ |
+| `error-handling` | Error handling patterns: try/catch, error boundaries, logging, monitoring, user-facing messages |
+| `security-best-practices` | Security: authentication, authorization, CORS/CSRF, secrets management, XSS prevention, OWASP Top 10 |
+| `performance-optimization` | Core Web Vitals, code splitting, lazy loading, image optimization, bundle analysis |
+| `llm-integration` | Tích hợp LLM APIs (OpenAI, Anthropic, Gemini): token optimization, streaming, caching, cost control |
+| `prompt-engineering` | Viết prompts hiệu quả: structured prompting, few-shot examples, chain-of-thought, cost reduction |
+| `git-workflow` | Git best practices: conventional commits, branch naming, PR process, merge strategies |
+| `accessibility-a11y` | Accessibility: WCAG 2.1, semantic HTML, ARIA attributes, keyboard navigation, screen reader testing |
+
+---
 
 ## 📌 Rules Vàng
 
@@ -279,7 +357,7 @@ Skills là các instruction set chuyên biệt giúp AI code đúng pattern, đ�
 
 ### Bắt đầu task mới
 ```
-Đọc CLAUDE.md → docs/phases/phase-0.md → tasks/todo.md
+Đọc CLAUDE.md → tasks/layer-0-todo.md
 
 Implement task "In Progress".
 Chỉ sửa files được liệt kê trong task.
