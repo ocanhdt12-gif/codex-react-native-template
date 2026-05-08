@@ -1,7 +1,13 @@
-# 🚀 Opencode Project Template
+# 🚀 Codex React Native Template
 
-> Production-ready template để khởi động project mới với Opencode.  
-> Tích hợp Brainstorming → Design → Scope Breakdown → Code → Test → Monitor workflow.
+> Production-ready template để khởi động **React Native / Expo project** với **[OpenAI Codex](https://openai.com/codex)** (CLI).  
+> Tích hợp Brainstorming → Design → Scope Breakdown → Code → Test → Release workflow.
+
+![AI Tool](https://img.shields.io/badge/AI-OpenAI%20Codex-412991?logo=openai) ![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-lightgrey?logo=react) ![Language](https://img.shields.io/badge/Stack-React%20Native%20%7C%20Expo%20%7C%20TypeScript-61DAFB)
+
+### 🤖 Dành cho OpenAI Codex CLI · 📱 Mobile First
+Template này được tối ưu cho **OpenAI Codex CLI** khi phát triển ứng dụng **React Native / Expo**.  
+Skills tập trung vào mobile: Expo Router, NativeWind, EAS Build, mobile testing, và release pipeline.
 
 ---
 
