@@ -420,6 +420,26 @@ Xem `docs/MONITORING.md` để:
 
 ---
 
+---
+
+## 🛠️ Skills
+
+Skills là các instruction set chuyên biệt giúp AI code đúng pattern, đúng convention, và tránh lỗi phổ biến. Mỗi skill nằm trong `skills/<tên>/SKILL.md`.
+
+| Skill | Mô tả |
+|-------|-------|
+| `brainstorming` | Dùng TRƯỚC khi làm bất kỳ feature mới. Explore ý tưởng, clarify requirements, propose approaches, viết design doc trước khi code |
+| `boilerplate` | Tạo boilerplate code cho các pattern phổ biến |
+| `typescript` | Viết TypeScript type-safe với proper narrowing, inference patterns, và strict mode |
+| `expo-router-nativewind` | Setup Expo Router + NativeWind: root layout, safe area, gesture handler, Reanimated, theme wiring, route structure |
+| `mobile-app-agent` | Senior React Native agent: screen composition, navigation, device APIs, offline-aware state, performance |
+| `mobile-auth-state` | Authentication, session persistence, secure token storage, auth-gated navigation cho Expo apps |
+| `mobile-api-integration` | Kết nối app với backend APIs: typed client, auth headers, refresh-token, query/mutation hooks, offline caching |
+| `mobile-data-forms` | Data fetching, mutations, caching, optimistic updates và validated forms với TanStack Query |
+| `mobile-i18n-theme` | Localization, theme tokens, dark mode, design primitives cho React Native apps |
+| `mobile-testing-release` | Testing pyramid: unit, integration, device verification, E2E smoke, internal builds, release readiness |
+| `expo-eas-pipeline` | Expo EAS build/release pipelines: environments, secrets, profiles, CI handoff, GitHub Actions automation |
+
 ## 📌 Rules Vàng
 
 | Rule | Lý do |
