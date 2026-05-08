@@ -1,6 +1,6 @@
-# 🚀 Codex React Native Template
+# 🚀 Opencode Project Template
 
-> Production-ready template để khởi động project mobile mới với Codex + Expo.  
+> Production-ready template để khởi động project mới với Opencode.  
 > Tích hợp Brainstorming → Design → Scope Breakdown → Code → Test → Monitor workflow.
 
 ---
@@ -14,18 +14,16 @@
 - **Auto-learn từ mistakes** — continuous learning system
 - **Understand codebase** — Graphify knowledge graph
 - **Production-ready** — monitoring, error tracking, metrics, CI/CD
-- **Mobile-first** — Expo Router + NativeWind + EAS build pipeline
 
 ---
 
 ## 📋 Yêu Cầu
 
-- [Codex](https://opencode.ai) đã cài
+- [Opencode](https://opencode.ai) đã cài
 - `git` đã cài
 - `bash` (macOS / Linux / WSL) HOẶC `cmd`/`PowerShell` (Windows)
 - `npm` hoặc `pnpm`
-- `eas-cli` (cho EAS builds): `npm install -g eas-cli`
-- Expo account (free): https://expo.dev
+- Chrome browser (cho E2E testing)
 
 ---
 
@@ -34,8 +32,8 @@
 ### Bước 1: Clone template
 
 ```bash
-git clone https://github.com/ocanhdt12-gif/codex-react-native-template my-app
-cd my-app
+git clone https://github.com/ocanhdt12-gif/opencode-project-template my-project
+cd my-project
 ```
 
 ### Bước 2: Chạy script khởi tạo
@@ -55,7 +53,7 @@ scripts\start-project.bat
 .\scripts\start-project.ps1
 ```
 
-Script hỏi 2 thứ:
+Script hỏi 5 bước:
 
 ```
 Step 1/4: Project name
@@ -82,22 +80,44 @@ Sau đó script tự:
 - Ghi brain dump → `docs/BRIEF.md`
 - Reset git history (fresh repo)
 
-### Bước 3: Mở Codex
-
-```bash
-codex .
+**Step 5: Tạo GitHub repo (tùy chọn)**
+```
+Step 5/5: GitHub repo
+  Tạo repo trên GitHub không? (y/n) [default: n]: y
+  Đang tạo repo...
+  ✅ Repo created: https://github.com/ocanhdt12-gif/my-awesome-app
 ```
 
-Codex tự đọc `CODEX.md` → kích hoạt **Brainstorming Phase**.
+Nếu chọn **yes**:
+- Script tự động tạo repo public trên GitHub
+- Tên repo: `my-awesome-app` (lowercase, spaces → hyphens)
+- Description: Lấy từ brain dump
+- Tự động push code lên
+
+Nếu chọn **no**:
+- Bỏ qua tạo GitHub repo
+- Bạn có thể push thủ công sau:
+  ```bash
+  git remote add origin git@github.com:ocanhdt12-gif/my-awesome-app.git
+  git push -u origin main
+  ```
+
+### Bước 3: Mở Opencode
+
+```bash
+opencode .
+```
+
+Opencode tự đọc `CLAUDE.md` → kích hoạt **Brainstorming Phase**.
 
 ---
 
 ## 🗂️ Cấu Trúc Project
 
 ```
-my-app/
+my-project/
 │
-├── CODEX.md                       ← 🔑 Source of truth cho Codex
+├── CLAUDE.md                      ← 🔑 Source of truth cho Opencode
 │
 ├── docs/
 │   ├── BRIEF.md                   ← Brain dump ban đầu
@@ -106,8 +126,7 @@ my-app/
 │   ├── MEMORY_HOOKS.md            ← Auto-save/load context
 │   ├── CONTINUOUS_LEARNING.md     ← Auto-extract patterns
 │   ├── GRAPHIFY.md                ← Knowledge graph builder
-│   ├── CI_CD_MOBILE.md            ← Mobile CI/CD + EAS flow
-│   ├── MOBILE_E2E.md              ← Device testing + release checklist
+│   ├── CI_CD_WEB.md               ← Web CI/CD flow
 │   ├── specs/                     ← Design docs (output của brainstorming)
 │   │   └── YYYY-MM-DD-[topic]-design.md
 │   └── phases/
@@ -131,8 +150,7 @@ my-app/
 │   ├── layer-2-todo.md            ← Layer 2 tasks
 │   └── layer-3-todo.md            ← Layer 3 tasks (hoặc thêm layer nếu cần)
 │
-├── app/                           ← Expo Router entry screens
-├── src/                           ← Shared source code
+├── src/                           ← Source code
 │
 ├── tests/
 │   ├── unit/                      ← Viết cùng lúc với code
@@ -147,11 +165,11 @@ my-app/
 ├── .github/
 │   └── workflows/
 │       ├── ci.yml                 ← Quality gate (lint, typecheck, test, build)
-│       ├── eas-preview.yml        ← EAS preview build
-│       └── eas-production.yml     ← EAS production build
+│       ├── preview-build.yml      ← Preview artifact
+│       └── production-build.yml   ← Production artifact
 │
-├── eas.json                       ← EAS build profiles
-├── app.config.ts                  ← Expo app config
+├── docker-compose.monitoring.yml  ← Prometheus + Grafana
+├── prometheus.yml                 ← Prometheus config
 ├── .env.example                   ← Env vars template
 └── .gitignore
 ```
@@ -170,7 +188,7 @@ my-app/
   → Nhập tên + brain dump
   → docs/BRIEF.md tạo xong
         ↓
-codex .
+opencode .
         ↓
 ┌─── PHASE 0: BRAINSTORMING ────────────────────────┐
 │  Đọc BRIEF → clarify từng câu một                 │
@@ -215,8 +233,8 @@ codex .
         ↓
 ┌─── LAYER 3: POLISH + RELEASE ─────────────────────┐
 │  (Depends on Layer 2)                             │
-│  Device testing → fix → EAS preview build        │
-│  User review → EAS production build 🚀           │
+│  E2E test → fix → deploy staging                 │
+│  User review staging → deploy production 🚀      │
 └───────────────────────────────────────────────────┘
 ```
 
@@ -258,18 +276,16 @@ Xem `docs/SCOPE_BREAKDOWN.md` để chi tiết.
 
 ---
 
-## 📱 Mobile CI/CD + EAS Flow
+## 🚦 Web CI/CD Flow
 
 Template này có 3 lớp verify:
 
 ### 1. Local Development
 ```bash
 npm run dev
-# hoặc
-expo start
 ```
 - Hot reload + debug UI trực tiếp
-- Chạy trên simulator/emulator hoặc device
+- Chạy browser automation / manual test
 - Nơi để catch lỗi nhanh nhất
 
 ### 2. GitHub Actions Quality Gate
@@ -286,26 +302,29 @@ Checks:
 
 **Nếu fail:** PR không merge được, phải fix local rồi push lại.
 
-### 3. EAS Preview Build
+### 3. Preview Build
 Trigger: push vào `develop` hoặc manual `workflow_dispatch`
 
-Workflow: `.github/workflows/eas-preview.yml`
+Workflow: `.github/workflows/preview-build.yml`
 
 Output:
-- EAS preview build (QR code để test trên device)
+- Build artifact upload lên GitHub Actions
+- Download để review/test
 - Dùng trước khi merge vào `main`
-- Xem `docs/CI_CD_MOBILE.md` để setup EAS
 
-### 4. EAS Production Build
+### 4. Production Build
 Trigger: manual `workflow_dispatch` (chỉ từ `main`)
 
-Workflow: `.github/workflows/eas-production.yml`
+Workflow: `.github/workflows/production-build.yml`
 
 Output:
-- EAS production build (sẵn sàng submit App Store / Google Play)
+- Production artifact upload
 - Có `environment: production` để gắn approval nếu cần
+- Sẵn sàng cho deploy provider thật
 
-Xem `docs/CI_CD_MOBILE.md` để full guide + EAS setup.
+**Provider-agnostic:** Template này chưa hard-code Vercel/Netlify/Cloudflare. Khi project chốt hosting, thêm bước deploy provider-specific vào workflow.
+
+Xem `docs/CI_CD_WEB.md` để full guide.
 
 ---
 
@@ -341,14 +360,14 @@ graphify ./src
 graphify-out/
   ├── graph.html              # Interactive visualization
   ├── GRAPH_REPORT.md         # Core nodes + surprises
-  ├── graph.json              # Queryable graph (for Codex)
+  ├── graph.json              # Queryable graph (for Opencode)
   └── cache/
 ```
 
 **Usage:**
 - Review `GRAPH_REPORT.md` sau major changes
 - Open `graph.html` để explore architecture
-- Codex reads `graph.json` để hiểu structure
+- Opencode reads `graph.json` để hiểu structure
 - Run trước release để catch architecture drift
 
 Xem `docs/GRAPHIFY.md` để full guide.
@@ -384,7 +403,7 @@ docker-compose -f docker-compose.monitoring.yml up -d
 
 **3. Full Guide**
 Xem `docs/MONITORING.md` để:
-- Init Sentry trong React Native
+- Init Sentry trong Node.js + React
 - Setup Prometheus metrics
 - Create Grafana dashboards
 - Deploy production
@@ -396,8 +415,8 @@ Xem `docs/MONITORING.md` để:
 | Loại | Khi nào viết | Tool |
 |------|-------------|------|
 | **Unit** | Ngay sau mỗi task | Vitest |
-| **Integration** | Cuối mỗi layer | Vitest |
-| **E2E** | Trước release | Detox |
+| **Integration** | Cuối mỗi layer | Vitest + Supertest |
+| **E2E** | Trước release | Playwright |
 
 ---
 
@@ -407,7 +426,7 @@ Xem `docs/MONITORING.md` để:
 |------|-------|
 | Brainstorm trước khi code | Tránh build sai thứ |
 | Design doc phải được approve | Hard gate, không skip |
-| `CODEX.md` là source of truth | Codex đọc đầu tiên |
+| `CLAUDE.md` là source of truth | Opencode đọc đầu tiên |
 | 1 prompt = 1 task | Context nhỏ → output tốt |
 | Test viết ngay, không để cuối | Tránh bug chồng bug |
 | Commit sau mỗi task | Rollback dễ |
@@ -419,7 +438,7 @@ Xem `docs/MONITORING.md` để:
 
 ### Bắt đầu task mới
 ```
-Đọc CODEX.md → docs/phases/phase-0.md → tasks/todo.md
+Đọc CLAUDE.md → docs/phases/phase-0.md → tasks/todo.md
 
 Implement task "In Progress".
 Chỉ sửa files được liệt kê trong task.
@@ -454,8 +473,7 @@ graphify ./src
 - **Continuous Learning:** `docs/CONTINUOUS_LEARNING.md`
 - **Graphify:** `docs/GRAPHIFY.md`
 - **Monitoring:** `docs/MONITORING.md`
-- **Mobile CI/CD:** `docs/CI_CD_MOBILE.md`
-- **Mobile E2E:** `docs/MOBILE_E2E.md`
+- **Web CI/CD:** `docs/CI_CD_WEB.md`
 
 ---
 
