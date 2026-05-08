@@ -67,7 +67,22 @@ Sau khi spec approved:
 [Điền sau Phase 0]
 
 ## Folder Structure
-[Điền sau Phase 0]
+
+```
+tasks/
+├── layer-0-todo.md      ← Foundation tasks (no dependency)
+├── layer-1-todo.md      ← Depends on Layer 0 (tạo khi cần)
+├── layer-2-todo.md      ← Depends on Layer 1 (tạo khi cần)
+├── layer-N-todo.md      ← Tạo tùy scope breakdown
+└── done.md              ← Completed tasks log
+```
+
+**Quy tắc:**
+- Số layer phụ thuộc vào scope breakdown + dependency analysis
+- Mỗi layer chứa nhiều task độc lập (không phải chỉ 1 task)
+- Các task trong cùng layer có thể làm song parallel
+- Chỉ khi layer N hoàn toàn xong → mới bắt đầu layer N+1
+
 
 ## Coding Rules
 - **TypeScript strict** — không dùng `any`
