@@ -71,5 +71,18 @@ Sau khi Phase 0 xong, quay lại Sonnet:
 
 ---
 
+## Tự Review Spec (QUAN TRỌNG)
+
+Trước khi user review, kiểm tra design doc:
+- Placeholder còn sót không? (TBD, TODO, [...])
+- Có mâu thuẫn giữa các section không?
+- Scope có quá lớn không? (nếu có → chia sub-projects)
+- Có requirement nào mơ hồ không?
+- **Có chức năng nào trong SPECIFICATIONS.md mà chưa được mention trong design doc không?** ← QUAN TRỌNG
+
+Nếu có thiếu → fix design doc trước khi user approve. Không skip bước này.
+
+---
+
 ## Skill Reference
 Chi tiết: `skills/brainstorming/SKILL.md`

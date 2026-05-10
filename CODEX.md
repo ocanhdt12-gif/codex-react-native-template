@@ -46,6 +46,7 @@ Kiểm tra:
 - Có mâu thuẫn giữa các section không?
 - Scope có quá lớn không? (nếu có → chia sub-projects)
 - Có requirement nào mơ hồ không?
+- **Có chức năng nào trong SPECIFICATIONS.md mà chưa được mention trong design doc không?** ← QUAN TRỌNG: Design doc phải cover hết tất cả chức năng
 Fix inline, không cần hỏi lại.
 
 **Bước 7 — User Review**
