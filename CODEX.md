@@ -63,6 +63,13 @@ Sau khi spec approved:
 - Update `CLAUDE.md` phần Stack, Folder Structure bên dưới
 - Xóa block "FIRST TIME SETUP" này
 
+⚠️ QUAN TRỌNG: Task Size - Không Quá Lớn
+- Mỗi task nên đủ nhỏ để 1 agent có thể hoàn thành trong 1-3 ngày
+- Nếu chức năng lớn → chia thành nhiều task nhỏ hơn
+- Có thể chia nhiều layer, nhiều task trong 1 layer cũng được
+- Mỗi task phải cụ thể, dễ estimate, dễ test
+- Tránh task mơ hồ hoặc quá scope
+
 ⚠️ KHÔNG code gì trong Phase 0. KHÔNG skip bước nào.
 
 ---
