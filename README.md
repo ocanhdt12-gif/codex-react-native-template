@@ -357,6 +357,7 @@ Skills là các instruction set chuyên biệt giúp AI code đúng pattern, đ�
 | Design doc phải được approve | Hard gate, không skip |
 | `CLAUDE.md` là source of truth | Opencode đọc đầu tiên |
 | 1 prompt = 1 task | Context nhỏ → output tốt |
+| **Task không quá lớn (1-3 ngày)** | **Dễ estimate, dễ test, không bị block** |
 | Test viết ngay, không để cuối | Tránh bug chồng bug |
 | Commit sau mỗi task | Rollback dễ |
 | Review memory/ + learnings/ | Tránh lỗi cũ |
