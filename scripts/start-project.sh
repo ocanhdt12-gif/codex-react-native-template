@@ -16,7 +16,7 @@ RESET="\033[0m"
 
 echo ""
 echo -e "${BOLD}╔══════════════════════════════════════════╗${RESET}"
-echo -e "${BOLD}║     🚀 Opencode Project Starter          ║${RESET}"
+echo -e "${BOLD}║     🚀 Codex React Native Starter          ║${RESET}"
 echo -e "${BOLD}╚══════════════════════════════════════════╝${RESET}"
 echo ""
 
