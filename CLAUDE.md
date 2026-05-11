@@ -46,7 +46,6 @@ Kiểm tra:
 - Có mâu thuẫn giữa các section không?
 - Scope có quá lớn không? (nếu có → chia sub-projects)
 - Có requirement nào mơ hồ không?
-- **Có chức năng nào trong SPECIFICATIONS.md mà chưa được mention trong design doc không?** ← QUAN TRỌNG: Design doc phải cover hết tất cả chức năng
 Fix inline, không cần hỏi lại.
 
 **Bước 7 — User Review**
@@ -62,13 +61,6 @@ Sau khi spec approved:
 - Tạo `tasks/layer-1-todo.md`, `layer-2-todo.md`, ... khi cần
 - Update `CLAUDE.md` phần Stack, Folder Structure bên dưới
 - Xóa block "FIRST TIME SETUP" này
-
-⚠️ QUAN TRỌNG: Task Size - Không Quá Lớn
-- Mỗi task nên đủ nhỏ để 1 agent có thể hoàn thành trong 1-3 ngày
-- Nếu chức năng lớn → chia thành nhiều task nhỏ hơn
-- Có thể chia nhiều layer, nhiều task trong 1 layer cũng được
-- Mỗi task phải cụ thể, dễ estimate, dễ test
-- Tránh task mơ hồ hoặc quá scope
 
 ⚠️ KHÔNG code gì trong Phase 0. KHÔNG skip bước nào.
 
@@ -93,6 +85,70 @@ Dùng **Dependency-Driven approach**:
 - Các task trong cùng layer có thể làm song parallel
 - Chỉ khi layer N hoàn toàn xong → mới bắt đầu layer N+1
 - Xem `docs/SCOPE_BREAKDOWN.md` để chi tiết
+
+### 🎯 Team Workflow — Pick Task CLI
+
+**Tự động pick task + update trạng thái:**
+```bash
+npm run pick-task
+```
+
+**Script sẽ:**
+1. Detect layer hiện tại (layer-0, layer-1, ...)
+2. Hiển thị danh sách todo tasks
+3. Hỏi bạn pick task nào (support single hoặc multiple)
+4. Hỏi tên người pick
+5. Update task file (status = in-progress, assigned = tên) cho mỗi task
+6. **Commit + push tự động** lên main
+7. Tạo feature branch cho mỗi task
+
+**Workflow cụ thể:**
+```bash
+# 1. Pull latest
+git pull origin main
+
+# 2. Pick task (tự động update + push)
+npm run pick-task
+# → Chọn task: 1,2,3 (hoặc 1 2 3)
+# → Nhập tên → Xong!
+
+# 3. Làm việc trong feature branch
+# (branch đã được tạo sẵn)
+git status  # Xem branch hiện tại
+
+# 4. Commit + push khi xong
+git add .
+git commit -m "feat: Task description"
+git push origin feature/task-X-...
+
+# 5. Merge vào main (hoặc tạo PR)
+```
+
+**Ví dụ Pick Multiple Tasks:**
+```bash
+npm run pick-task
+# → Pick task numbers (e.g., 1,2,3 or 1 2 3): 1,2,3
+# → Your name: Tuấn Anh
+# → Processing task 1: Setup database...
+# → Processing task 2: Create API base...
+# → Processing task 3: Setup auth...
+# → ✨ Done!
+# → 📌 Picked 3 task(s):
+#    1. Setup database
+#       🌿 feature/task-1-setup-database
+#    2. Create API base
+#       🌿 feature/task-2-create-api-base
+#    3. Setup auth
+#       🌿 feature/task-3-setup-auth
+# → 👤 Assigned to: @Tuấn Anh
+```
+
+**Lợi ích:**
+- ✅ Pick 1 hoặc nhiều tasks cùng lúc
+- ✅ Mọi người pull về sẽ thấy task đã assign → không ai pick lại
+- ✅ Task file luôn up-to-date trên main
+- ✅ Tránh conflict khi 2 người cùng pick task
+- ✅ Mỗi task = 1 branch riêng → dễ review + rollback
 
 ---
 
@@ -185,76 +241,6 @@ npm run pick-task
 - **Brainstorm trước khi thêm feature** — đọc `skills/brainstorming/SKILL.md`
 - **Memory hooks** — auto-save/load context, xem `docs/MEMORY_HOOKS.md`
 - **Continuous learning** — extract patterns, xem `docs/CONTINUOUS_LEARNING.md`
-
-## 🎯 Team Workflow — Pick Task CLI
-
-**Tự động pick task + update trạng thái:**
-```bash
-npm run pick-task
-```
-
-**Script sẽ:**
-1. Detect layer hiện tại (layer-0, layer-1, ...)
-2. Hiển thị danh sách todo tasks
-3. Hỏi bạn pick task nào (support single hoặc multiple)
-4. Hỏi tên người pick
-5. Update task file (status = in-progress, assigned = tên) cho mỗi task
-6. **Commit + push tự động** lên main
-7. Tạo feature branch cho mỗi task
-
-**Workflow cụ thể:**
-```bash
-# 1. Pull latest
-git pull origin main
-
-# 2. Pick task (tự động update + push)
-npm run pick-task
-# → Chọn task: 1,2,3 (hoặc 1 2 3)
-# → Nhập tên → Xong!
-
-# 3. Làm việc trong feature branch
-# (branch đã được tạo sẵn)
-git status  # Xem branch hiện tại
-
-# 4. Commit + push khi xong
-git add .
-git commit -m "feat: Task description"
-git push origin feature/task-X-...
-
-# 5. Merge vào main (hoặc tạo PR)
-```
-
-**Ví dụ Pick Multiple Tasks:**
-```bash
-npm run pick-task
-# → Pick task numbers (e.g., 1,2,3 or 1 2 3): 1,2,3
-# → Your name: Tuấn Anh
-# → Processing task 1: Setup database...
-# → Processing task 2: Create API base...
-# → Processing task 3: Setup auth...
-# → ✨ Done!
-# → 📌 Picked 3 task(s):
-#    1. Setup database
-#       🌿 feature/task-1-setup-database
-#    2. Create API base
-#       🌿 feature/task-2-create-api-base
-#    3. Setup auth
-#       🌿 feature/task-3-setup-auth
-# → 👤 Assigned to: @Tuấn Anh
-```
-
-**Lợi ích:**
-- ✅ Pick 1 hoặc nhiều tasks cùng lúc
-- ✅ Mọi người pull về sẽ thấy task đã assign → không ai pick lại
-- ✅ Task file luôn up-to-date trên main
-- ✅ Tránh conflict khi 2 người cùng pick task
-- ✅ Mỗi task = 1 branch riêng → dễ review + rollback
-
-**Lợi ích:**
-- ✅ Mọi người pull về sẽ thấy task đã assign → không ai pick lại
-- ✅ Task file luôn up-to-date trên main
-- ✅ Tránh conflict khi 2 người cùng pick task
-- ✅ Mỗi task = 1 branch riêng → dễ review + rollback
 - **Resource file cho secrets** — KHÔNG hard-code key, url, password, username vào code. Lưu vào `.env` hoặc `config/resources.json` rồi gọi ra
 
 ---

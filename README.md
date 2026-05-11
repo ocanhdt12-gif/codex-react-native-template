@@ -346,6 +346,7 @@ Skills là các instruction set chuyên biệt giúp AI code đúng pattern, đ�
 | `prompt-engineering` | Viết prompts hiệu quả: structured prompting, few-shot examples, chain-of-thought, cost reduction |
 | `git-workflow` | Git best practices: conventional commits, branch naming, PR process, merge strategies |
 | `accessibility-a11y` | Accessibility: WCAG 2.1, semantic HTML, ARIA attributes, keyboard navigation, screen reader testing |
+| `chrome-devtools-mcp` | Chrome DevTools MCP for browser automation & E2E testing: Playwright, Puppeteer, CDP protocol |
 
 ---
 
@@ -357,7 +358,6 @@ Skills là các instruction set chuyên biệt giúp AI code đúng pattern, đ�
 | Design doc phải được approve | Hard gate, không skip |
 | `CLAUDE.md` là source of truth | Opencode đọc đầu tiên |
 | 1 prompt = 1 task | Context nhỏ → output tốt |
-| **Task không quá lớn (1-3 ngày)** | **Dễ estimate, dễ test, không bị block** |
 | Test viết ngay, không để cuối | Tránh bug chồng bug |
 | Commit sau mỗi task | Rollback dễ |
 | Review memory/ + learnings/ | Tránh lỗi cũ |
@@ -369,7 +369,7 @@ Skills là các instruction set chuyên biệt giúp AI code đúng pattern, đ�
 
 ### Pick Task
 
-Khi team làm việc, mỗi người cần pick 1 task từ layer hiện tại:
+Khi team làm việc, mỗi người cần pick 1 hoặc nhiều tasks từ layer hiện tại:
 
 ```bash
 npm run pick-task
@@ -378,11 +378,11 @@ npm run pick-task
 **Script sẽ:**
 1. Detect layer hiện tại (layer-0, layer-1, ...)
 2. Hiển thị danh sách todo tasks
-3. Hỏi bạn pick task nào
+3. Hỏi bạn pick task nào (support single hoặc multiple)
 4. Hỏi tên người pick
-5. Update task file (status = in-progress, assigned = tên)
+5. Update task file (status = in-progress, assigned = tên) cho mỗi task
 6. **Commit + push tự động** lên main
-7. Tạo feature branch sẵn
+7. Tạo feature branch cho mỗi task
 
 **Workflow cụ thể:**
 
@@ -392,7 +392,8 @@ git pull origin main
 
 # 2. Pick task (tự động update + push)
 npm run pick-task
-# → Chọn task → Nhập tên → Xong!
+# → Chọn task: 1,2,3 (hoặc 1 2 3)
+# → Nhập tên → Xong!
 
 # 3. Làm việc trong feature branch
 # (branch đã được tạo sẵn)
@@ -406,7 +407,28 @@ git push origin feature/task-X-...
 # 5. Merge vào main (hoặc tạo PR)
 ```
 
+**Ví dụ Pick Multiple Tasks:**
+
+```bash
+npm run pick-task
+# → Pick task numbers (e.g., 1,2,3 or 1 2 3): 1,2,3
+# → Your name: Tuấn Anh
+# → Processing task 1: Setup database...
+# → Processing task 2: Create API base...
+# → Processing task 3: Setup auth...
+# → ✨ Done!
+# → 📌 Picked 3 task(s):
+#    1. Setup database
+#       🌿 feature/task-1-setup-database
+#    2. Create API base
+#       🌿 feature/task-2-create-api-base
+#    3. Setup auth
+#       🌿 feature/task-3-setup-auth
+# → 👤 Assigned to: @Tuấn Anh
+```
+
 **Lợi ích:**
+- ✅ Pick 1 hoặc nhiều tasks cùng lúc
 - ✅ Mọi người pull về sẽ thấy task đã assign → không ai pick lại
 - ✅ Task file luôn up-to-date trên main
 - ✅ Tránh conflict khi 2 người cùng pick task
