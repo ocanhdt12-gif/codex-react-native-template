@@ -52,7 +52,6 @@ Kiểm tra:
 - Có mâu thuẫn giữa các section không?
 - Scope có quá lớn không? (nếu có → chia sub-projects)
 - Có requirement nào mơ hồ không?
-- **Có chức năng nào trong SPECIFICATIONS.md mà chưa được mention trong design doc không?** ← QUAN TRỌNG: Design doc phải cover hết tất cả chức năng
 Fix inline, không cần hỏi lại.
 
 **Bước 7 — User Review**
@@ -68,13 +67,6 @@ Sau khi spec approved:
 - Tạo `tasks/layer-1-todo.md`, `layer-2-todo.md`, ... khi cần
 - Update `CLAUDE.md` phần Stack, Folder Structure bên dưới
 - Xóa block "FIRST TIME SETUP" này
-
-⚠️ QUAN TRỌNG: Task Size - Không Quá Lớn
-- Mỗi task nên đủ nhỏ để 1 agent có thể hoàn thành trong 1-3 ngày
-- Nếu chức năng lớn → chia thành nhiều task nhỏ hơn
-- Có thể chia nhiều layer, nhiều task trong 1 layer cũng được
-- Mỗi task phải cụ thể, dễ estimate, dễ test
-- Tránh task mơ hồ hoặc quá scope
 
 ⚠️ KHÔNG code gì trong Phase 0. KHÔNG skip bước nào.
 
@@ -99,8 +91,6 @@ Dùng **Dependency-Driven approach**:
 - Các task trong cùng layer có thể làm song parallel
 - Chỉ khi layer N hoàn toàn xong → mới bắt đầu layer N+1
 - Xem `docs/SCOPE_BREAKDOWN.md` để chi tiết
-
----
 
 ## Stack
 [Điền sau Phase 0]
@@ -191,12 +181,6 @@ Khi user báo bug/feature:
 - **Scope control** — không sửa file ngoài danh sách cho phép trong task
 - **Error handling** — mọi async function phải handle error
 - **Brainstorm trước khi thêm feature** — đọc `skills/brainstorming/SKILL.md`
-
-**Lợi ích:**
-- ✅ Mọi người pull về sẽ thấy task đã assign → không ai pick lại
-- ✅ Task file luôn up-to-date trên main
-- ✅ Tránh conflict khi 2 người cùng pick task
-- ✅ Mỗi task = 1 branch riêng → dễ review + rollback
 - **Resource file cho secrets** — KHÔNG hard-code key, url, password, username vào code. Lưu vào `.env` hoặc `config/resources.json` rồi gọi ra
 
 ---
@@ -325,3 +309,137 @@ Nếu Phase 0 xác định stack là React/Next.js:
 3. Các skill `frontend-agent`, `typescript`, `tailwind-v4-shadcn` sẽ tự động áp dụng
 
 Nếu stack khác → bỏ qua folder `skills/boilerplate/` hoàn toàn.
+
+---
+
+## 📊 Token Optimization Guide
+
+**QUAN TRỌNG:** Token cao = chi phí cao + context bị lãng phí. Agents phải tuân theo hướng dẫn này.
+
+### 1. Session Management (Bắt buộc)
+
+**Bắt đầu session mới cho mỗi task lớn:**
+
+- ✅ Mỗi feature mới = session mới
+- ✅ Mỗi bug fix lớn = session mới
+- ✅ Mỗi refactor = session mới
+- ❌ KHÔNG dồn nhiều tasks vào 1 session dài
+
+**Lợi:**
+- Session dài = context window đầy nhanh
+- Conversation history tích lũy = token cao
+- Khó debug khi có lỗi
+
+**Cách làm:**
+```
+Session 1: Feature A (hoàn chỉnh)
+  ↓ Commit + push
+  ↓ Ctrl+P → New Session
+Session 2: Feature B (hoàn chỉnh)
+  ↓ Commit + push
+  ↓ Ctrl+P → New Session
+Session 3: Feature C (hoàn chỉnh)
+```
+
+### 2. Scope HẮp (Bắt buộc)
+
+**Khi giao task, nói rõ scope hẮp:**
+
+- ✅ "Thêm button login vào LoginScreen"
+- ❌ "Thêm authentication system"
+
+- ✅ "Fix bug: FaceDetectorScreen crash khi camera permission denied"
+- ❌ "Fix tất cả bugs trong app"
+
+**Lợi:**
+- Scope rộng = agent đọc file thừa
+- File lớn (600+ dòng) đọc nhiều lần = token cao
+
+**Cách làm:**
+- Nói rõ file cần sửa: "Thêm button vào `src/screens/LoginScreen.tsx`"
+- Nói rõ function cần sửa: "Fix `handleCameraPermission()` trong `src/utils/face.ts`"
+- Nói rõ line range: "Thêm code sau line 150 trong `src/screens/FaceDetectorScreen.tsx`"
+
+### 3. Tránh Build Output (Bắt buộc)
+
+**KHÔNG chạy `npx react-native run-android` trong session:**
+
+- ❌ Gradle output = 200+ dòng
+- ❌ Tất cả đều vào context
+- ❌ Token cao vô cùng
+
+**Cách làm:**
+- Chạy build ngoài terminal: `npx react-native run-android` (tay)
+- Nếu có lỗi build, copy error message vào session
+- Agent sẽ fix code, sau đó anh chạy build lại ngoài terminal
+
+### 4. Đọc File Thắc (Bắt buộc)
+
+**Khi đọc file lớn, dùng offset + limit:**
+
+```
+✅ GOOD: Đọc line 100-150 của file 600 dòng
+  read(path, offset=100, limit=50)
+
+❌ BAD: Đọc toàn bộ file 600 dòng
+  read(path)
+```
+
+**Lợi:**
+- Đọc toàn bộ file = token cao
+- Đọc nhiều lần = token càng cao
+
+**Cách làm:**
+- Nếu file > 200 dòng, chỉ đọc phần cần
+- Dùng offset + limit để đọc từng phần
+- Nếu cần toàn bộ, đọc nhiều lần nhỏ hơn
+
+### 5. Context Seed (Bắt buộc)
+
+**Khi bắt đầu session mới, dùng CLAUDE.md làm context seed:**
+
+```
+Session mới:
+  1. Đọc CLAUDE.md (context seed)
+  2. Nói rõ task scope hẮp
+  3. Agent làm task
+  4. Commit + push
+  5. Ctrl+P → New Session
+```
+
+**Lợi:**
+- Nếu giải thích lại từ đầu = token cao
+- CLAUDE.md đã có tất cả context cần
+
+**Cách làm:**
+- Agent tự đọc CLAUDE.md đầu tiên
+- Không cần giải thích lại
+- Chỉ nói rõ task scope hẮp
+
+### 6. Checklist Trước Khi Giao Task
+
+- [ ] Session mới cho task này?
+- [ ] Scope rõ ràng và hẮp?
+- [ ] Đã nói file cần sửa?
+- [ ] Đã nói function cần sửa?
+- [ ] KHÔNG chạy build trong session?
+- [ ] CLAUDE.md đã có context seed?
+
+### 7. Nhận Dạng Token Cao
+
+**Nếu thấy token cao:**
+
+- ✅ Khởi tạo session mới
+- ✅ Commit + push từng feature
+- ✅ Giải thích lại scope hẮp hơn
+- ✅ Tránh chạy build trong session
+
+**Nếu token vẫn cao:**
+
+- ✅ Check CLAUDE.md có đầy đủ context không
+- ✅ Check file đọc có quá lớn không
+- ✅ Check conversation history có quá dài không
+
+---
+
+**Nếu bất cứ câu hỏi nào về token optimization, hãy đọc section này trước tiên.**
