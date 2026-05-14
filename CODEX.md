@@ -341,26 +341,7 @@ Session 2: Feature B (hoàn chỉnh)
 Session 3: Feature C (hoàn chỉnh)
 ```
 
-### 2. Scope HẮp (Bắt buộc)
-
-**Khi giao task, nói rõ scope hẮp:**
-
-- ✅ "Thêm button login vào LoginScreen"
-- ❌ "Thêm authentication system"
-
-- ✅ "Fix bug: FaceDetectorScreen crash khi camera permission denied"
-- ❌ "Fix tất cả bugs trong app"
-
-**Lợi:**
-- Scope rộng = agent đọc file thừa
-- File lớn (600+ dòng) đọc nhiều lần = token cao
-
-**Cách làm:**
-- Nói rõ file cần sửa: "Thêm button vào `src/screens/LoginScreen.tsx`"
-- Nói rõ function cần sửa: "Fix `handleCameraPermission()` trong `src/utils/face.ts`"
-- Nói rõ line range: "Thêm code sau line 150 trong `src/screens/FaceDetectorScreen.tsx`"
-
-### 3. Tránh Build Output (Bắt buộc)
+### 2. Tránh Build Output (Bắt buộc)
 
 **KHÔNG chạy `npx react-native run-android` trong session:**
 
@@ -373,7 +354,7 @@ Session 3: Feature C (hoàn chỉnh)
 - Nếu có lỗi build, copy error message vào session
 - Agent sẽ fix code, sau đó anh chạy build lại ngoài terminal
 
-### 4. Đọc File Thắc (Bắt buộc)
+### 3. Đọc File Thắc (Bắt buộc)
 
 **Khi đọc file lớn, dùng offset + limit:**
 
@@ -394,7 +375,7 @@ Session 3: Feature C (hoàn chỉnh)
 - Dùng offset + limit để đọc từng phần
 - Nếu cần toàn bộ, đọc nhiều lần nhỏ hơn
 
-### 5. Context Seed (Bắt buộc)
+### 4. Context Seed (Bắt buộc)
 
 **Khi bắt đầu session mới, dùng CLAUDE.md làm context seed:**
 
@@ -416,16 +397,14 @@ Session mới:
 - Không cần giải thích lại
 - Chỉ nói rõ task scope hẮp
 
-### 6. Checklist Trước Khi Giao Task
+### 5. Checklist Trước Khi Giao Task
 
 - [ ] Session mới cho task này?
 - [ ] Scope rõ ràng và hẮp?
-- [ ] Đã nói file cần sửa?
-- [ ] Đã nói function cần sửa?
 - [ ] KHÔNG chạy build trong session?
 - [ ] CLAUDE.md đã có context seed?
 
-### 7. Nhận Dạng Token Cao
+### 6. Nhận Dạng Token Cao
 
 **Nếu thấy token cao:**
 
