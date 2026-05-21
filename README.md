@@ -30,19 +30,7 @@ Cấu trúc `CODEX.md`, `skills/`, `docs/` được thiết kế để Codex đ�
 - `npm` hoặc `pnpm`
 - Chrome browser (cho E2E testing)
 - **Python 3.10+** + **uv** (package manager)
-- **graphify** (code dependency analyzer)
-
-### Cài Graphify
-
-```bash
-# Clone graphify repo
-git clone https://github.com/safishamsi/graphify.git
-cd graphify
-uv sync
-
-# Graphify sẽ chạy sau Layer 0 (sau khi setup project xong)
-# để phân tích dependency + tạo graph.json
-```
+- **[graphify](https://github.com/safishamsi/graphify)** (code dependency analyzer)
 - Chrome browser (cho E2E testing)
 
 ---
